@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import AddMemberModal from '../component/AddMemberModal';
 import { CiFilter } from 'react-icons/ci';
 import { IoSearchOutline } from 'react-icons/io5';
@@ -131,6 +132,7 @@ const PeopleTable = () => {
     const [personToDelete, setPersonToDelete] = useState("");
     const [isOffCanvasOpen, setIsOffCanvasOpen] = useState(false);
     const [selectedRoles, setSelectedRoles] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchPeople();
@@ -172,7 +174,7 @@ const PeopleTable = () => {
                 await axios.post(`${import.meta.env.VITE_BASE_URL}/api/personDetails`, person);
             }
             fetchPeople();
-            window.location.reload();
+            navigate(0);
         } catch (error) {
             console.error('Error saving person:', error);
         }
